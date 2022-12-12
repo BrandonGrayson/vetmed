@@ -1,10 +1,10 @@
 import "./App.css";
-import { Typography } from "@mui/material";
+import MedTable from "./components/Table";
 
 function App() {
   return (
     <>
-      <Typography>App component</Typography>
+      <MedTable />
     </>
   );
 }

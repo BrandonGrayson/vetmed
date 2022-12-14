@@ -1,11 +1,14 @@
 import "./App.css";
-import MedTable from "./components/Table";
+import SignUpUser from "./components/SignUpUserForm";
+import { Grid } from "@mui/material";
 
 function App() {
   return (
-    <>
-      <MedTable />
-    </>
+    <Grid container>
+      <Grid>
+        <SignUpUser />
+      </Grid>
+    </Grid>
   );
 }
 

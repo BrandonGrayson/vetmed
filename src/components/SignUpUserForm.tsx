@@ -1,6 +1,32 @@
 import { Grid, TextField, Box, Button, Typography } from "@mui/material";
+import { useState } from "react";
 
 export default function SignUpUser() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = async () => {
+    const response = await fetch("http://127.0.0.1:8000/users", {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    return response.json();
+  };
   return (
     <Grid container>
       <Grid
@@ -37,6 +63,7 @@ export default function SignUpUser() {
           <TextField
             id="outlined-basic"
             label="Email"
+            value={email}
             variant="outlined"
             sx={{
               marginBottom: "20px",
@@ -45,10 +72,12 @@ export default function SignUpUser() {
               marginRight: "auto",
               marginTop: "45px",
             }}
+            onChange={handleEmailChange}
           />
           <TextField
             id="outlined-basic"
             label="Password"
+            value={password}
             variant="outlined"
             sx={{
               marginBottom: "20px",
@@ -56,6 +85,7 @@ export default function SignUpUser() {
               marginLeft: "auto",
               marginRight: "auto",
             }}
+            onChange={handlePasswordChange}
           />
           <Button
             sx={{
@@ -65,6 +95,7 @@ export default function SignUpUser() {
               marginRight: "auto",
             }}
             variant="contained"
+            onClick={handleSubmit}
           >
             Sign Up
           </Button>

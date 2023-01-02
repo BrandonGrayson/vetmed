@@ -78,6 +78,8 @@ export default function AddNewMedDialog({
           type="text"
           variant="outlined"
           value={description}
+          multiline
+          rows={4}
           fullWidth
           sx={{ marginBottom: "25px" }}
           onChange={(event) => setDescription(event.target.value)}

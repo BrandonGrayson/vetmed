@@ -1,6 +1,8 @@
 import { Grid, TextField, Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
+// on Hover we want to make the tool tip viewable
+
 export default function SignUpUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +26,9 @@ export default function SignUpUser() {
       },
       body: JSON.stringify({ email, password }),
     });
+
+    setEmail("");
+    setPassword("");
 
     return response.json();
   };

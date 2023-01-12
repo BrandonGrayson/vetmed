@@ -6,9 +6,6 @@ import {
   Box,
   DialogTitle,
   TextField,
-  List,
-  ListItem,
-  ListItemText,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -21,7 +18,7 @@ export default function AddNewMedDialog({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [medication, setMedication] = useState("");
+  const [medicationName, setMedicationName] = useState("");
   const [description, setDescription] = useState("");
   const [usedFor, setUsedFor] = useState("");
   const [cantBeTakenWith, setCantBeTakenWith] = useState("");
@@ -41,10 +38,21 @@ export default function AddNewMedDialog({
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({ medication, description }),
+      body: JSON.stringify({
+        medicationName,
+        description,
+        usedFor,
+        dontTakeWith,
+      }),
     });
+    setMedicationName("");
+    setDescription("");
+    setUsedFor("");
+    setDontTakeWith([]);
 
-    return response.json();
+    const data = await response.json();
+
+    return data;
   };
 
   const AddMedicationToList = () => {
@@ -52,8 +60,6 @@ export default function AddNewMedDialog({
 
     setCantBeTakenWith("");
   };
-
-  console.log("meds", dontTakeWith);
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -67,9 +73,9 @@ export default function AddNewMedDialog({
           label="Medication"
           type="text"
           variant="outlined"
-          value={medication}
+          value={medicationName}
           fullWidth
-          onChange={(event) => setMedication(event.target.value)}
+          onChange={(event) => setMedicationName(event.target.value)}
           sx={{ marginBottom: "25px", marginTop: "10px" }}
         />
         <TextField

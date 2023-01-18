@@ -1,9 +1,9 @@
 import "./App.css";
 // import SignUpUser from "./components/SignUpUserForm";
-import Sample from "./pages/Sample";
+import MedicationsHome from "./pages/MedicationsHome";
 
 function App() {
-  return <Sample />;
+  return <MedicationsHome />;
 }
 
 export default App;

@@ -3,7 +3,7 @@ import MedTable from "../components/Table";
 import { useState } from "react";
 import AddNewMedDialog from "../components/AddNewMedDialog";
 
-export default function Sample() {
+export default function MedicationsHome() {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -12,7 +12,7 @@ export default function Sample() {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Typography>Standard Medication Instructions</Typography>
+        <Typography>Animal Hospital Medication Instructions</Typography>
         <Button onClick={handleClickOpen} variant="contained">
           Add Medication
         </Button>

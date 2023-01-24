@@ -3,7 +3,7 @@ import MedTable from "../components/Table";
 import { useState } from "react";
 import AddNewMedDialog from "../components/AddNewMedDialog";
 
-export default function MedicationsHome() {
+export default function MedicationsHome({ token }: { token: string }) {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,7 +20,6 @@ export default function MedicationsHome() {
       <Grid item xs={12}>
         <MedTable />
       </Grid>
-      {/* Dialog Form */}
       <AddNewMedDialog open={open} setOpen={setOpen} />
     </Grid>
   );

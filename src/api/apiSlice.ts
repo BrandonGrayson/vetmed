@@ -4,9 +4,9 @@ export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({baseUrl: 'http://127.0.0.1:8000'}),
     endpoints: builder => ({
-        Login: builder.mutation({
+        getToken: builder.mutation({
             query: (userCredentials) => ({
-                url: '/token',
+                url: '/login',
                 method: 'POST',
                 body: userCredentials
             })
@@ -14,4 +14,4 @@ export const apiSlice = createApi({
     })
 })
 
-export const { useLoginMutation } = apiSlice
+export const { useGetTokenMutation } = apiSlice

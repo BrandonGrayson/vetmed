@@ -3,7 +3,7 @@ import MedTable from "../components/Table";
 import { useState } from "react";
 import AddNewMedDialog from "../components/AddNewMedDialog";
 
-export default function MedicationsHome({ token }: { token: string }) {
+export default function MedicationsHome() {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);

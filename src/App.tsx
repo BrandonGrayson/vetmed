@@ -1,10 +1,7 @@
-import Login from "./components/Login";
-import { useState } from "react";
-import MedicationsHome from "./pages/MedicationsHome";
+import { Typography } from "@mui/material";
 
 function App() {
-  const [token, setToken] = useState("");
-  return <>{token ? <MedicationsHome token={token} /> : <Login />}</>;
+  return <Typography>App</Typography>;
 }
 
 export default App;

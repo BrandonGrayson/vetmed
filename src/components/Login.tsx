@@ -1,15 +1,13 @@
 import { Grid, Typography, Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../api/apiSlice";
+import { useGetTokenMutation } from "../api/apiSlice";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
-
-  const [getToken, { isLoading }] = useLoginMutation();
+  const [getToken, { isLoading }] = useGetTokenMutation();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -20,16 +18,17 @@ export default function Login() {
   };
 
   const canSave = [email, password].every(Boolean) && !isLoading;
+  //   const canSave = [email, password].every(Boolean);
 
   const handleLogIn = async () => {
     if (canSave) {
       try {
+        console.log("get Token about to fire");
         await getToken({ email, password }).unwrap();
         navigate(`/home`);
       } catch (error) {
         console.log("error", error);
       }
-
       setEmail("");
       setPassword("");
     }

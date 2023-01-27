@@ -8,6 +8,7 @@ interface TokenState {
 const initialState: TokenState = {
     token: ''
 }
+
 export const tokenSlice = createSlice({
     name: 'token',
     initialState,

@@ -2,12 +2,17 @@ import { Grid, Typography, Button } from "@mui/material";
 import MedTable from "../components/Table";
 import { useState } from "react";
 import AddNewMedDialog from "../components/AddNewMedDialog";
+import { useAppSelector } from "../app/hooks";
 
 export default function MedicationsHome() {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const token = useAppSelector((state) => state.tokenSlice.token);
+
+  console.log(token);
 
   return (
     <Grid container>

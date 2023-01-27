@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
+import MedicationsHome from "./pages/MedicationsHome";
 
 function App() {
-  return <Typography>App</Typography>;
+  return <MedicationsHome />;
 }
 
 export default App;

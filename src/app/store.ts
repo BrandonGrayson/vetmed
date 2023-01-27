@@ -4,7 +4,7 @@ import tokenSlice from '../features/tokenSlice'
 
 export const store = configureStore({
     reducer: {
-        tokenReducer: tokenSlice,
+        tokenSlice: tokenSlice,
         [apiSlice.reducerPath]: apiSlice.reducer
     },
     middleware: getDefaultMiddleware => 

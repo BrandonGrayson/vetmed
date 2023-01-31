@@ -1,9 +1,10 @@
 import { Grid, Typography, Button } from "@mui/material";
 import MedTable from "../components/Table";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddNewMedDialog from "../components/AddNewMedDialog";
 import { useAppSelector } from "../app/hooks";
 import { useGetMedicationsQuery } from "../api/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function MedicationsHome() {
   const [open, setOpen] = useState(false);
@@ -11,9 +12,17 @@ export default function MedicationsHome() {
     setOpen(true);
   };
 
+  const navigate = useNavigate();
+
   const token = useAppSelector((state) => state.tokenSlice.token);
 
   console.log("token", token);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   const result = useGetMedicationsQuery(token);
 

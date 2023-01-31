@@ -3,6 +3,7 @@ import MedTable from "../components/Table";
 import { useState } from "react";
 import AddNewMedDialog from "../components/AddNewMedDialog";
 import { useAppSelector } from "../app/hooks";
+import { useGetMedicationsQuery } from "../api/apiSlice";
 
 export default function MedicationsHome() {
   const [open, setOpen] = useState(false);
@@ -12,7 +13,11 @@ export default function MedicationsHome() {
 
   const token = useAppSelector((state) => state.tokenSlice.token);
 
-  console.log(token);
+  console.log("token", token);
+
+  const result = useGetMedicationsQuery(token);
+
+  console.log("useGetMedicationsQuery", result);
 
   return (
     <Grid container>

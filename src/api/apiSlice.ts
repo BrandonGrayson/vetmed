@@ -19,8 +19,17 @@ export const apiSlice = createApi({
                     "Authorization": `Bearer ${token}`,
                 }
             })
+        }),
+        addMedication: builder.mutation({
+            query: (token) => ({
+                url: '/medications',
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
         })
     })
 })
 
-export const { useGetTokenMutation, useGetMedicationsQuery } = apiSlice
+export const { useGetTokenMutation, useGetMedicationsQuery, useAddMedicationMutation } = apiSlice

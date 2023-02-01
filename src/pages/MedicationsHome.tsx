@@ -16,8 +16,6 @@ export default function MedicationsHome() {
 
   const token = useAppSelector((state) => state.tokenSlice.token);
 
-  console.log("token", token);
-
   useEffect(() => {
     if (!token) {
       navigate("/");

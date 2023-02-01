@@ -21,12 +21,13 @@ export const apiSlice = createApi({
             })
         }),
         addMedication: builder.mutation({
-            query: (token) => ({
+            query: ({token, newMedication}) => ({
                 url: '/medications',
                 method: 'POST',
                 headers: {
                     "Authorization": `Bearer ${token}`
-                }
+                },
+                body: newMedication
             })
         })
     })

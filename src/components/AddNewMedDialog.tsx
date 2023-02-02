@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useAddMedicationMutation } from "../api/apiSlice";
+import { useAppSelector } from "../app/hooks";
 
 export default function AddNewMedDialog({
   open,
@@ -18,41 +20,39 @@ export default function AddNewMedDialog({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [medicationName, setMedicationName] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [usedFor, setUsedFor] = useState("");
   const [cantBeTakenWith, setCantBeTakenWith] = useState("");
   const [dontTakeWith, setDontTakeWith] = useState<string[]>([]);
+
+  const [addMedication, { isLoading }] = useAddMedicationMutation();
+  const token = useAppSelector((state) => state.tokenSlice.token);
+
+  const canSave = [name, description, usedFor].every(Boolean) && !isLoading;
+  const newMedication = {
+    name,
+    description,
+    used_for: usedFor,
+    dont_take_with: dontTakeWith,
+  };
 
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = async () => {
-    const response = await fetch("http://127.0.0.1:8000/medications", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify({
-        medicationName,
-        description,
-        usedFor,
-        dontTakeWith,
-      }),
-    });
-    setMedicationName("");
+    if (canSave) {
+      await addMedication({ token, newMedication }).unwrap();
+    }
+    setName("");
     setDescription("");
     setUsedFor("");
     setDontTakeWith([]);
 
-    const data = await response.json();
+    // const data = await response.json();
 
-    return data;
+    // return data;
   };
 
   const AddMedicationToList = () => {
@@ -73,9 +73,9 @@ export default function AddNewMedDialog({
           label="Medication"
           type="text"
           variant="outlined"
-          value={medicationName}
+          value={name}
           fullWidth
-          onChange={(event) => setMedicationName(event.target.value)}
+          onChange={(event) => setName(event.target.value)}
           sx={{ marginBottom: "25px", marginTop: "10px" }}
         />
         <TextField

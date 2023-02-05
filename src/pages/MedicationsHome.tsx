@@ -1,10 +1,11 @@
 import { Grid, Typography, Button } from "@mui/material";
 import MedTable from "../components/Table";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import AddNewMedDialog from "../components/AddNewMedDialog";
 import { useAppSelector } from "../app/hooks";
 import { useGetMedicationsQuery } from "../api/apiSlice";
 import { useNavigate } from "react-router-dom";
+import Medication from "../schemas/schemas";
 
 export default function MedicationsHome() {
   const [open, setOpen] = useState(false);
@@ -13,7 +14,6 @@ export default function MedicationsHome() {
   };
 
   const navigate = useNavigate();
-
   const token = useAppSelector((state) => state.tokenSlice.token);
 
   useEffect(() => {
@@ -22,9 +22,27 @@ export default function MedicationsHome() {
     }
   }, [token, navigate]);
 
-  const result = useGetMedicationsQuery(token);
+  console.log("token before get med query", token);
+  const {
+    data: Medications = [],
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetMedicationsQuery(token);
 
-  console.log("useGetMedicationsQuery", result);
+  const sortedMedications = useMemo(() => {
+    const sortedMedications: Medication[] = Medications.slice();
+
+    sortedMedications.sort((med1: Medication, med2: Medication) =>
+      med2.created_at.localeCompare(med1.created_at)
+    );
+
+    return sortedMedications;
+  }, [Medications]);
+
+  // console.log(result.currentData);
+  // console.log("data", result);
 
   return (
     <Grid container>
@@ -35,7 +53,7 @@ export default function MedicationsHome() {
         </Button>
       </Grid>
       <Grid item xs={12}>
-        <MedTable />
+        <MedTable medication={sortedMedications} />
       </Grid>
       <AddNewMedDialog open={open} setOpen={setOpen} />
     </Grid>

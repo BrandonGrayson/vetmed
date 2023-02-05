@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
+import Medication from "../schemas/schemas";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -56,13 +57,13 @@ const columns: GridColDef[] = [
 //   },
 // ];
 
-export default function MedTable() {
-  const [rows, setRows] = useState([]);
+export default function MedTable({ medication }: { medication: Medication[] }) {
+  console.log("medications", medication);
 
   return (
     <Grid item xs={12} mt={5}>
       <DataGrid
-        rows={rows}
+        rows={medication}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

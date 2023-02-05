@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({baseUrl: 'http://127.0.0.1:8000'}),
+    tagTypes: ['Medication'],
     endpoints: builder => ({
         getToken: builder.mutation({
             query: (userCredentials) => ({
@@ -18,7 +19,8 @@ export const apiSlice = createApi({
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 }
-            })
+            }),
+            providesTags: ["Medication"]
         }),
         addMedication: builder.mutation({
             query: ({token, newMedication}) => ({
@@ -28,7 +30,8 @@ export const apiSlice = createApi({
                     "Authorization": `Bearer ${token}`
                 },
                 body: newMedication
-            })
+            }),
+            invalidatesTags: ["Medication"]
         })
     })
 })

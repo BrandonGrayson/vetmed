@@ -22,7 +22,6 @@ export default function MedicationsHome() {
     }
   }, [token, navigate]);
 
-  console.log("token before get med query", token);
   const {
     data: Medications = [],
     isLoading,
@@ -41,20 +40,30 @@ export default function MedicationsHome() {
     return sortedMedications;
   }, [Medications]);
 
-  // console.log(result.currentData);
-  // console.log("data", result);
-
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Typography>Animal Hospital Medication Instructions</Typography>
-        <Button onClick={handleClickOpen} variant="contained">
+        <Typography
+          variant="h4"
+          mt={3}
+          sx={{
+            marginBottom: "30px",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          Animal Hospital Medication Instructions
+        </Typography>
+        <Button
+          sx={{ marginLeft: "75px" }}
+          onClick={handleClickOpen}
+          variant="contained"
+        >
           Add Medication
         </Button>
       </Grid>
-      <Grid item xs={12}>
-        <MedTable medication={sortedMedications} />
-      </Grid>
+      <MedTable medication={sortedMedications} />
       <AddNewMedDialog open={open} setOpen={setOpen} />
     </Grid>
   );

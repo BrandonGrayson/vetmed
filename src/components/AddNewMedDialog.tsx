@@ -50,9 +50,7 @@ export default function AddNewMedDialog({
     setUsedFor("");
     setDontTakeWith([]);
 
-    // const data = await response.json();
-
-    // return data;
+    setOpen(false);
   };
 
   const AddMedicationToList = () => {
